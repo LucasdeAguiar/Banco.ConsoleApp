@@ -6,45 +6,80 @@ using System.Threading.Tasks;
 
 namespace Banco.ConsoleApp
 {
-    internal class Conta_Corrente
+    public class Conta_Corrente
     {
         //atributos
         public  int numero;
-        public  double saldo=0;
+        private double saldo=0;
         public  Boolean especial;
-        public  double limite;
+        private double limite;
+        private static int totalDeContas;
+
+
         public  Cliente titular = new Cliente();
-        public Movimentacao[] Movimentacoes;
-        
+     //   public  Movimentacao[] Movimentacoes;
+
+       
+
+        public Conta_Corrente()
+        {
+            
+            Conta_Corrente.totalDeContas = Conta_Corrente.totalDeContas + 1;
+        }
+
+        public double Saldo
+        {
+            get { return saldo + limite; }
+            set { saldo = value; }
+        }
+
+        public double Limite
+        {
+            get { return limite; }
+            set { limite = value; }
+        }
+        public Cliente Titular
+        {
+            get { return titular; }
+            set { titular = value; }
+        }
+
+        public static int TotalDeContas { get => totalDeContas;  }
+
+
+
+
+
+
 
         //Métodos
         public void sacar(double valorSaque)
         {
            
 
-            if (saldo < valorSaque && valorSaque > limite)
+            if (Saldo < valorSaque && valorSaque > Limite)
             {
-                Console.WriteLine("Não é possível sacar pois o valor de saque é maior que o valor armazenado na conta");
+                Console.WriteLine("Não vai da não..");
             }
             else
             {
-                saldo = saldo - valorSaque;
+                this.Saldo = this.Saldo - valorSaque;
               
             }
-            registrarNovaMovimentacao(valorSaque, TipoMovimentacao.Debito);
+           
         }
 
         public void depositar(double deposito)
         {
         
 
-            saldo = saldo + deposito;
-            registrarNovaMovimentacao(deposito, TipoMovimentacao.Credito);
+            Saldo = Saldo + deposito;
+            
         }
 
         public void emitirSaldo()
         {
-            Console.WriteLine("Saldo Bancário: " + saldo);
+            Console.WriteLine("Saldo Bancário: " + Saldo);
         }
 
         public void extrato()
@@ -53,19 +88,20 @@ namespace Banco.ConsoleApp
           //  Console.WriteLine("CPF do titular: " + titular.cpf);
             titular.mostrarCliente();
             Console.WriteLine("Número da conta: " + numero);
-            Console.WriteLine("Saldo da conta: " + saldo);
-            Console.WriteLine("Limite da conta: " + limite);
+            Console.WriteLine("Saldo da conta: " + Saldo);
+            Console.WriteLine("Limite da conta: " + Limite);
             Console.WriteLine("É especial: " + especial);
             Console.WriteLine("\n");
         }
         
         public void transferirPara(Conta_Corrente conta, double valor)
         {
-            this.saldo = this.saldo - valor;
-            conta.saldo += valor;
+            this.Saldo = this.Saldo - valor;
+            conta.Saldo += valor;
             
         }
 
+    /*
         public void registrarNovaMovimentacao(double valor, TipoMovimentacao tipo)
         {
             Movimentacao novaMovimentacao = new Movimentacao();
@@ -82,6 +118,9 @@ namespace Banco.ConsoleApp
                 }
             }
         }
+
+        */
+      
     }
 
    

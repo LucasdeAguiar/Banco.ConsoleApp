@@ -8,13 +8,21 @@ namespace Banco.ConsoleApp
 {
     internal class Funcionario
     {
-        public string nome;
-        public string departamento;
-        public double salario;
-        public string dataEntrada;
-        public string rg;
+        private string nome;
+        private string departamento;
+        private double salario;
+        private string dataEntrada;
+        private string rg;
         public Boolean estaNaEmpresa = true;
 
+        public Funcionario(string nome, string departamento, double salario, string dataEntrada, string rg)
+        {
+            this.nome = nome;
+            this.departamento = departamento;
+            this.salario = salario;
+            this.dataEntrada = dataEntrada;
+            this.rg = rg;
+        }
 
 
 
